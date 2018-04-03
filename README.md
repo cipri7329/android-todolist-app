@@ -91,6 +91,8 @@ Focus on the main user stories. Leave the optional ones for later work.
 
 ### Phase 2 - 
 
+create a list with [recyclerview](https://developer.android.com/guide/topics/ui/layout/recyclerview.html)
+
 ------------------------
 ## Step 5) Evaluation
 
