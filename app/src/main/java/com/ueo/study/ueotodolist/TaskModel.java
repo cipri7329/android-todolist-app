@@ -2,20 +2,32 @@ package com.ueo.study.ueotodolist;
 
 import java.util.Date;
 
+/**
+ * this models a TodoTask
+ *
+ * Each **task** can have different properties such as:
+ * - title
+ * - (optional) description
+ * - category
+ * - (optional) date deadline
+ * - color
+ */
 public class TaskModel {
 
-    private String name;
+    private String name; //our title
     private String description;
     private Date deadline;
+    private String category;
     private boolean done;
     private boolean isSelected;
 
-    public TaskModel(String name, String description, Date deadline) {
+    public TaskModel(String name, String description, Date deadline, String category) {
         this.name = name;
         this.description = description;
         this.deadline = deadline;
         this.done = false;
         this.isSelected = false;
+        this.category = category;
     }
 
     public String getName() {
@@ -56,6 +68,14 @@ public class TaskModel {
 
     public void setSelected(boolean isSelected) {
         this.isSelected = isSelected;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
 }
