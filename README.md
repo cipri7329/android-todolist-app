@@ -2,13 +2,13 @@
 This is a step by step tutorial guiding you to build a simple Android app.
 
 ------------------------
-## Step 1) Install Android Studio
+## Install Android Studio
 
 - identify your platform: `windows/mac/linux`
 - follow the steps provided [here](https://developer.android.com/studio/install.html)
 
 ------------------------
-## Step 2) Requirements Understanding
+## Requirements Understanding
 The following points act as a description of the app and as a requirements guide.
 
 Not all points are mandatory.
@@ -59,23 +59,18 @@ They typically follow a simple template: As a < type of user >, I want < some go
 (Optional) More details about user-stories can be read [here](https://www.mountaingoatsoftware.com/agile/user-stories).
 
 ------------------------
-## Step 3) Basic Android Concepts
+## App Development
 
-### Activities
-An Android activity is a graphical user interface component.
-It corresponds roughly to a window in a desktop application.
-Since mobile phone screens are small, an activity typically takes up the whole screen.
-If you open multiple activities they are stacked on top of each other.
-You cannot arrange activities side by side, like you can do with desktop windows.
+Please follow the steps in the following links.
 
-An Android activity is one screen of the Android app's user interface.
-In that way an Android activity is very similar to windows in a desktop application.
-An Android app may contain one or more activities, meaning one or more screens.
-The Android app starts by showing the main activity, and from there the app may make it possible to open additional activities.
+Focus on the main user stories. Leave the optional ones for later work.
 
-More details [here](http://tutorials.jenkov.com/android/core-concepts.html#activities)
+---------------------------------------------------
+### Phase 1 - Project creation
 
-### Project Structure
+[project creation](http://bit.ly/android-todoapp-phase1)
+
+#### Project Structure
 
 We will write code and modify information only in two directories:
 - app/java
@@ -91,18 +86,7 @@ In **app/res** directory we have code that:
 
 For an in-depth understanding navigate to this [link](https://developer.android.com/studio/projects/index.html).
 
-
-------------------------
-## Step 4) App Development
-
-Please follow the steps in the following links.
-
-Focus on the main user stories. Leave the optional ones for later work.
-
-### Phase 1 - Project creation
-
-[project creation](http://bit.ly/android-todoapp-phase1)
-
+---------------------------------------------------
 ### Phase 2 - Categories and Tasks
 
 [slides for phase 2](http://bit.ly/android-todoapp-phase2)
@@ -209,10 +193,102 @@ Add to your CategoriesModel the following constants.
     public static final String CATEGORY_SPIRITUAL = "spiritual";
     public static final String CATEGORY_PERSONAL = "personal";
 
+---------------------------------------------------
+## Phase 3 - UI components: Menus and Tasks
+
+### Modify how the menus look
+
+Go to `res -> menu -> activity_home_drawer.xml `.
+The .xml files define the layout, how the items will look on the screen.
+Switch between `Design/Text` and text to see the order of the items and how things will look.
+
+Change the names of the menu items.
+
+    <item
+        android:id="@+id/nav_personal"
+        android:icon="@drawable/ic_menu_camera"
+        android:title="Personal" />
+    <item
+
+Add new menu item by copying one of the items.
+Paste it before the </group> tag.
+
+Update the `android:id` values for each item.
+The id provides a unique identification mechanism for each element.
+
+### Modify the action for each menu
+
+Go to `app -> java -> com.ueo.study.ueotodolist (your package name) -> HomeActivity`
+Navigate method `onNavigationItemSelected`.
+Update the `R.id.nav_camera` with the new ids from the previous step.
+`R.id.*` is a global way to access a graphical element.
+
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        if (id == R.id.nav_personal) {
+            // Handle the personal category
+        } else if (id == R.id.nav_school) {
+        ...
+
+
+### Task Design
+
+Now we get to the part where add the code that will define how our tasks will look on the screen.
+
+On `res -> layout` right click and add new layout resource file.
+Name it `task_layout`.
+
+Change the `layout_height` to `wrap_content`.
+
+Now let's add some elements there.
+
+Add the following:
+- a `TextView` for the task title
+- a `TextView` for the task description
+- a `TextView` for the category
+- a `CheckBox` button for the task done/not done status
+
+Select an element and
+set constraints to the top/down/left/right elements to fix them on the position.
+
+
+
+
+--------------------------------------------------
+## Phase 3 - HomeActivity
+
+### Activities
+An Android activity is a graphical user interface component.
+It corresponds roughly to a window in a desktop application.
+Since mobile phone screens are small, an activity typically takes up the whole screen.
+If you open multiple activities they are stacked on top of each other.
+You cannot arrange activities side by side, like you can do with desktop windows.
+
+An Android activity is one screen of the Android app's user interface.
+In that way an Android activity is very similar to windows in a desktop application.
+An Android app may contain one or more activities, meaning one or more screens.
+The Android app starts by showing the main activity, and from there the app may make it possible to open additional activities.
+
+More details [here](http://tutorials.jenkov.com/android/core-concepts.html#activities)
+
+### Modify HomeActivity
+
+Open the **HomeActivity** in your project.
+It may be called **MainActivity** in your project.
+
+Add a field for your `CategoriesModel`.
+
+     private CategoriesModel categoriesModel = new CategoriesModel();
 
 
 
 create a list with [recyclerview](https://developer.android.com/guide/topics/ui/layout/recyclerview.html)
+
+
 
 ------------------------
 ## Step 5) Evaluation

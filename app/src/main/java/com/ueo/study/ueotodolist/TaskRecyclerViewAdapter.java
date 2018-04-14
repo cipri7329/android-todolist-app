@@ -28,7 +28,7 @@ public class TaskRecyclerViewAdapter extends
                                                                           int viewType) {
 
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.task_layout, parent, false);
+                .inflate(R.layout.task_layout2, parent, false);
 
         ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;
@@ -37,14 +37,15 @@ public class TaskRecyclerViewAdapter extends
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         TaskModel filterM = filterList.get(position);
-        holder.brandName.setText(filterM.getName());
-        holder.productCount.setText("" + filterM.getName());
-        if (filterM.isSelected()) {
-            holder.selectionState.setChecked(true);
-        } else {
-            holder.selectionState.setChecked(false);
-        }
 
+        holder.taskName.setText(filterM.getName());
+        holder.taskDescription.setText("" + filterM.getDescription());
+        holder.taskCategory.setText("" + filterM.getCategory());
+        if (filterM.isDone()) {
+            holder.taskState.setChecked(true);
+        } else {
+            holder.taskState.setChecked(false);
+        }
     }
 
     @Override
@@ -54,27 +55,29 @@ public class TaskRecyclerViewAdapter extends
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        public TextView brandName;
-        public TextView productCount;
-        public CheckBox selectionState;
+        public TextView taskName;
+        public TextView taskDescription;
+        public TextView taskCategory;
+        public CheckBox taskState;
 
         public ViewHolder(View view) {
             super(view);
-            brandName = (TextView) view.findViewById(R.id.brand_name);
-            productCount = (TextView) view.findViewById(R.id.product_count);
-            selectionState = (CheckBox) view.findViewById(R.id.task_select);
+            taskName = (TextView) view.findViewById(R.id.task_title);
+            taskDescription = (TextView) view.findViewById(R.id.task_description);
+            taskCategory = (TextView) view.findViewById(R.id.task_category);
+            taskState = (CheckBox) view.findViewById(R.id.task_status);
 
             //item click event listener
             view.setOnClickListener(this);
 
             //checkbox click event handling
-            selectionState.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            taskState.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView,
                                              boolean isChecked) {
                     if (isChecked) {
                         Toast.makeText(TaskRecyclerViewAdapter.this.context,
-                                "selected brand is " + brandName.getText(),
+                                "task done:" + taskName.getText(),
                                 Toast.LENGTH_LONG).show();
                     } else {
 
@@ -85,7 +88,7 @@ public class TaskRecyclerViewAdapter extends
 
         @Override
         public void onClick(View v) {
-            TextView brndName = (TextView) v.findViewById(R.id.brand_name);
+            TextView brndName = (TextView) v.findViewById(R.id.task_title);
             //show more information about brand
         }
     }

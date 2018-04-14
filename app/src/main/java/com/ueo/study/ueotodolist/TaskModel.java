@@ -19,14 +19,12 @@ public class TaskModel {
     private Date deadline;
     private String category;
     private boolean done;
-    private boolean isSelected;
 
     public TaskModel(String name, String description, Date deadline, String category) {
         this.name = name;
         this.description = description;
         this.deadline = deadline;
         this.done = false;
-        this.isSelected = false;
         this.category = category;
     }
 
@@ -60,14 +58,6 @@ public class TaskModel {
 
     public void setDone(boolean done) {
         this.done = done;
-    }
-
-    public boolean isSelected() {
-        return isSelected;
-    }
-
-    public void setSelected(boolean isSelected) {
-        this.isSelected = isSelected;
     }
 
     public String getCategory() {
