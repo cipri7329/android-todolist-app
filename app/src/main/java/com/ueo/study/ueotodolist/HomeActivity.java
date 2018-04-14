@@ -17,8 +17,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 public class HomeActivity extends AppCompatActivity
@@ -29,6 +27,8 @@ public class HomeActivity extends AppCompatActivity
     private RecyclerView.LayoutManager mLayoutManager;
 
     private String id = "Home Tasks";
+
+    private CategoriesModel categoriesModel = new CategoriesModel();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,24 +79,7 @@ public class HomeActivity extends AppCompatActivity
     }
 
     private List<TaskModel> getInitialTasks(){
-        List<TaskModel> modelList = new ArrayList<TaskModel>();
-        modelList.add(new TaskModel("Adidas", "1323", Calendar.getInstance().getTime()));
-        modelList.add(new TaskModel("Nike", "2321", Calendar.getInstance().getTime()));
-        modelList.add(new TaskModel("Reebok", "3221", Calendar.getInstance().getTime()));
-        modelList.add(new TaskModel("Boss", "1323", Calendar.getInstance().getTime()));
-        modelList.add(new TaskModel("Wrangler", "5651", Calendar.getInstance().getTime()));
-        modelList.add(new TaskModel("Lee", "1898", Calendar.getInstance().getTime()));
-        modelList.add(new TaskModel("Levis", "1655", Calendar.getInstance().getTime()));
-        modelList.add(new TaskModel("Polo", "8881", Calendar.getInstance().getTime()));
-        modelList.add(new TaskModel("Tommy Hil", "167", Calendar.getInstance().getTime()));
-        modelList.add(new TaskModel("Nautica1", "177", Calendar.getInstance().getTime()));
-        modelList.add(new TaskModel("Nautica2", "177", Calendar.getInstance().getTime()));
-        modelList.add(new TaskModel("Nautica3", "177", Calendar.getInstance().getTime()));
-        modelList.add(new TaskModel("Nautica4", "177", Calendar.getInstance().getTime()));
-        modelList.add(new TaskModel("Nautica5", "177", Calendar.getInstance().getTime()));
-        modelList.add(new TaskModel("Nautica6", "177", Calendar.getInstance().getTime()));
-        modelList.add(new TaskModel("Nautica7", "177", Calendar.getInstance().getTime()));
-
+        List<TaskModel> modelList = categoriesModel.sampleTasks();
         return modelList;
     }
 
@@ -139,7 +122,7 @@ public class HomeActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_personal) {
-            // Handle the camera action
+            // Handle the personal category
         } else if (id == R.id.nav_school) {
 
         } else if (id == R.id.nav_family) {
@@ -148,7 +131,7 @@ public class HomeActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_work) {
 
-        } else if (id == R.id.nav_send) {
+        }else if (id == R.id.nav_all) {
 
         }
 

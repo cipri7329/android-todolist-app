@@ -3,6 +3,10 @@
 
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/nav_all"
+            android:icon="@drawable/ic_menu_share"
+            android:title="All" />
+        <item
             android:id="@+id/nav_personal"
             android:icon="@drawable/ic_menu_camera"
             android:title="Personal" />
@@ -18,24 +22,12 @@
             android:id="@+id/nav_spiritual"
             android:icon="@drawable/ic_menu_manage"
             android:title="Spiritual" />
-
         <item
             android:id="@+id/nav_family"
             android:icon="@drawable/ic_menu_share"
             android:title="Family" />
     </group>
 
-    <item android:title="Communicate">
-        <menu>
-            <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
-            <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
-        </menu>
-    </item>
+
 
 </menu>
