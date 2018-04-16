@@ -6,6 +6,7 @@ import java.util.List;
 
 public class CategoriesModel {
 
+    public static final String CATEGORY_ALL = "all";
     public static final String CATEGORY_WORK = "work";
     public static final String CATEGORY_FAMILY = "family";
     public static final String CATEGORY_SCHOOL = "school";
@@ -46,22 +47,22 @@ public class CategoriesModel {
      */
     public List<TaskModel> sampleTasks(){
         List<TaskModel> modelList = new ArrayList<TaskModel>();
-        modelList.add(new TaskModel("family 1", "1323", Calendar.getInstance().getTime(), CATEGORY_FAMILY));
-        modelList.add(new TaskModel("family 2", "2321", Calendar.getInstance().getTime(), CATEGORY_FAMILY));
-        modelList.add(new TaskModel("family Reebok", "3221", Calendar.getInstance().getTime(), CATEGORY_FAMILY));
-        modelList.add(new TaskModel("family Boss", "1323", Calendar.getInstance().getTime(), CATEGORY_FAMILY));
-        modelList.add(new TaskModel("family Wrangler", "5651", Calendar.getInstance().getTime(), CATEGORY_FAMILY));
-        modelList.add(new TaskModel("family Lee", "1898", Calendar.getInstance().getTime(), CATEGORY_FAMILY));
-        modelList.add(new TaskModel("personal 1", "1655", Calendar.getInstance().getTime(), CATEGORY_PERSONAL));
-        modelList.add(new TaskModel("personal 2", "8881", Calendar.getInstance().getTime(), CATEGORY_PERSONAL));
-        modelList.add(new TaskModel("spiritual 2 Hil", "167", Calendar.getInstance().getTime(), CATEGORY_SPIRITUAL));
-        modelList.add(new TaskModel("spiritual 1", "177", Calendar.getInstance().getTime(), CATEGORY_SPIRITUAL));
-        modelList.add(new TaskModel("school 3", "177", Calendar.getInstance().getTime(), CATEGORY_SCHOOL));
-        modelList.add(new TaskModel("school 2", "177", Calendar.getInstance().getTime(), CATEGORY_SCHOOL));
-        modelList.add(new TaskModel("school 1", "177", Calendar.getInstance().getTime(), CATEGORY_SCHOOL));
-        modelList.add(new TaskModel("work 3", "177", Calendar.getInstance().getTime(), CATEGORY_WORK));
-        modelList.add(new TaskModel("work 2", "177", Calendar.getInstance().getTime(), CATEGORY_WORK));
-        modelList.add(new TaskModel("work 1", "177", Calendar.getInstance().getTime(), CATEGORY_WORK));
+        modelList.add(new TaskModel("family 1", "clean the dishes", Calendar.getInstance().getTime(), CATEGORY_FAMILY));
+        modelList.add(new TaskModel("family 2", "clean the car", Calendar.getInstance().getTime(), CATEGORY_FAMILY));
+        modelList.add(new TaskModel("family read", "read a book", Calendar.getInstance().getTime(), CATEGORY_FAMILY));
+        modelList.add(new TaskModel("family activity", "walk the dog", Calendar.getInstance().getTime(), CATEGORY_FAMILY));
+        modelList.add(new TaskModel("family shopping", "buy groceries", Calendar.getInstance().getTime(), CATEGORY_FAMILY));
+        modelList.add(new TaskModel("family visit", "visit grandparents", Calendar.getInstance().getTime(), CATEGORY_FAMILY));
+        modelList.add(new TaskModel("personal 1", "play some football", Calendar.getInstance().getTime(), CATEGORY_PERSONAL));
+        modelList.add(new TaskModel("personal 2", "read a book", Calendar.getInstance().getTime(), CATEGORY_PERSONAL));
+        modelList.add(new TaskModel("spiritual 2", "pray", Calendar.getInstance().getTime(), CATEGORY_SPIRITUAL));
+        modelList.add(new TaskModel("spiritual 1", "learn a new song", Calendar.getInstance().getTime(), CATEGORY_SPIRITUAL));
+        modelList.add(new TaskModel("school 3", "do homework", Calendar.getInstance().getTime(), CATEGORY_SCHOOL));
+        modelList.add(new TaskModel("school 2", "learn german", Calendar.getInstance().getTime(), CATEGORY_SCHOOL));
+        modelList.add(new TaskModel("school 1", "learn android", Calendar.getInstance().getTime(), CATEGORY_SCHOOL));
+        modelList.add(new TaskModel("work 3", "plan vacation", Calendar.getInstance().getTime(), CATEGORY_WORK));
+        modelList.add(new TaskModel("work 2", "contact client A", Calendar.getInstance().getTime(), CATEGORY_WORK));
+        modelList.add(new TaskModel("work 1", "ask for help", Calendar.getInstance().getTime(), CATEGORY_WORK));
         return modelList;
     }
 

@@ -15,12 +15,12 @@ import java.util.List;
 public class TaskRecyclerViewAdapter extends
         RecyclerView.Adapter<TaskRecyclerViewAdapter.ViewHolder> {
 
-    private List<TaskModel> filterList;
+    private List<TaskModel> tasksList;
     private Context context;
 
-    public TaskRecyclerViewAdapter(List<TaskModel> filterModelList, Context ctx) {
-        filterList = filterModelList;
-        context = ctx;
+    public TaskRecyclerViewAdapter(List<TaskModel> tasksLst, Context ctx) {
+        this.tasksList = tasksLst;
+        this.context = ctx;
     }
 
     @Override
@@ -28,7 +28,7 @@ public class TaskRecyclerViewAdapter extends
                                                                           int viewType) {
 
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.task_layout2, parent, false);
+                .inflate(R.layout.task_layout, parent, false);
 
         ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;
@@ -36,21 +36,34 @@ public class TaskRecyclerViewAdapter extends
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        TaskModel filterM = filterList.get(position);
+        final TaskModel selectedTask = tasksList.get(position);
 
-        holder.taskName.setText(filterM.getName());
-        holder.taskDescription.setText("" + filterM.getDescription());
-        holder.taskCategory.setText("" + filterM.getCategory());
-        if (filterM.isDone()) {
-            holder.taskState.setChecked(true);
-        } else {
-            holder.taskState.setChecked(false);
-        }
+        holder.taskName.setText(selectedTask.getName());
+        holder.taskDescription.setText("" + selectedTask.getDescription());
+        holder.taskCategory.setText("" + selectedTask.getCategory());
+
+        //when item from the display has been touched, we update the information of the model.
+        holder.taskState.setOnCheckedChangeListener(null);
+        holder.taskState.setChecked(selectedTask.isDone());
+        holder.taskState.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView,
+                                         boolean isChecked) {
+                if (isChecked) {
+                    Toast.makeText(TaskRecyclerViewAdapter.this.context,
+                            "task done:" + selectedTask.getName(),
+                            Toast.LENGTH_LONG).show();
+                    selectedTask.setDone(true);
+                } else {
+                    selectedTask.setDone(false);
+                }
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
-        return filterList.size();
+        return tasksList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -70,26 +83,13 @@ public class TaskRecyclerViewAdapter extends
             //item click event listener
             view.setOnClickListener(this);
 
-            //checkbox click event handling
-            taskState.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView,
-                                             boolean isChecked) {
-                    if (isChecked) {
-                        Toast.makeText(TaskRecyclerViewAdapter.this.context,
-                                "task done:" + taskName.getText(),
-                                Toast.LENGTH_LONG).show();
-                    } else {
-
-                    }
-                }
-            });
         }
 
         @Override
         public void onClick(View v) {
-            TextView brndName = (TextView) v.findViewById(R.id.task_title);
+            TextView taskTitle = (TextView) v.findViewById(R.id.task_title);
             //show more information about brand
+
         }
     }
 }
