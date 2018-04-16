@@ -352,7 +352,7 @@ Update the method `public boolean onNavigationItemSelected(MenuItem item)`.
 
 
 ------------------------
-## Step 5) Evaluation
+## Evaluation
 
 Each user story values 1 point.
 
