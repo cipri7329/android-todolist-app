@@ -66,7 +66,7 @@ Please follow the steps in the following links.
 Focus on the main user stories. Leave the optional ones for later work.
 
 ---------------------------------------------------
-### Phase 1 - Project creation
+### Project creation
 
 [project creation](http://bit.ly/android-todoapp-phase1)
 
@@ -87,13 +87,12 @@ In **app/res** directory we have code that:
 For an in-depth understanding navigate to this [link](https://developer.android.com/studio/projects/index.html).
 
 ---------------------------------------------------
-### Phase 2 - Categories and Tasks
+### TodoTask Definition
 
-[slides for phase 2](http://bit.ly/android-todoapp-phase2)
+[slides](http://bit.ly/android-todoapp-phase2)
 
-The entire code for phase 2 can be seen on github at this [link](https://github.com/ciprian12/android-todolist-app/blob/add-categories/app/src/main/java/com/ueo/study/ueotodolist/TaskModel.java)
+The entire code can be seen on github at this [link](https://github.com/ciprian12/android-todolist-app/blob/master/app/src/main/java/com/ueo/study/ueotodolist)
 
-#### Task Definition
 
 Let's define a class that stores the information for a task.
 A class is a method to represent real-life objects or concepts.
@@ -176,7 +175,7 @@ Our TodoTask can be modeled as a java class in the following way:
         }
     }
 
-The entire code can be seen on github at this [link](https://github.com/ciprian12/android-todolist-app/blob/add-categories/app/src/main/java/com/ueo/study/ueotodolist/CategoriesModel.java)
+The entire code can be seen on github at this [link](https://github.com/ciprian12/android-todolist-app/blob/master/app/src/main/java/com/ueo/study/ueotodolist/CategoriesModel.java)
 
 Now we have a way to store and filter our tasks.
 
@@ -194,7 +193,7 @@ Add to your CategoriesModel the following constants.
     public static final String CATEGORY_PERSONAL = "personal";
 
 ---------------------------------------------------
-## Phase 3 - UI components: Menus and Tasks
+### UI components: Menus and Tasks
 
 ### Modify how the menus look
 
@@ -255,13 +254,10 @@ Add the following:
 Select an element and
 set constraints to the top/down/left/right elements to fix them on the position.
 
-
-
-
 --------------------------------------------------
-## Phase 3 - HomeActivity
+### Activities - HomeActivity
 
-### Activities
+#### Android Activity
 An Android activity is a graphical user interface component.
 It corresponds roughly to a window in a desktop application.
 Since mobile phone screens are small, an activity typically takes up the whole screen.
@@ -275,7 +271,7 @@ The Android app starts by showing the main activity, and from there the app may 
 
 More details [here](http://tutorials.jenkov.com/android/core-concepts.html#activities)
 
-### Modify HomeActivity
+#### Modify HomeActivity
 
 Open the **HomeActivity** in your project.
 It may be called **MainActivity** in your project.
@@ -283,11 +279,76 @@ It may be called **MainActivity** in your project.
 Add a field for your `CategoriesModel`.
 
      private CategoriesModel categoriesModel = new CategoriesModel();
+     private List<TaskModel> tasksList = new ArrayList<>();
+     private TextView selectedCategoryText;
+
+#### RecyclerView
+
+We will create a list with `RecyclerView` component.
+
+If your app needs to display a scrolling list of elements based on large data sets (or data that frequently changes), you should use `RecyclerView` as described on
+ [more about recyclerview](https://developer.android.com/guide/topics/ui/layout/recyclerview.html).
+
+A simple `RecyclerView` tutorial can be found [here](https://www.androidhive.info/2016/01/android-working-with-recycler-view/).
+
+In `res/layout/content_home.xml` we add the following:
+
+    <android.support.v7.widget.RecyclerView
+       android:id="@+id/tasks_lst"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:layout_marginTop="16dp"
+       android:scrollbars="vertical"
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintTop_toBottomOf="@+id/tasks_title" />
+
+To feed all our data to the list, we must extend the RecyclerView.Adapter class. This object creates views for items, and replaces the content of some of the views with new data items when the original item is no longer visible.
+
+Let's create a class `TaskRecyclerViewAdapter`.
+
+#### Connect the tasks to their graphical elements  
+
+In the `HomeActivity` we will connect the `TaskRecyclerViewAdapter` with our tasks.
+
+Add these fields to your activity.
+
+      private RecyclerView tasksRecyclerView;
+      private RecyclerView.Adapter mAdapter;
+
+Then in the method
+`protected void onCreate(Bundle savedInstanceState)`
+we will add the actual creation of our list.
+
+    //tasks recycler view
+    tasksRecyclerView = (RecyclerView) findViewById(R.id.tasks_recyclerview);
+
+    // use a linear layout manager
+    mLayoutManager = new LinearLayoutManager(this);
+    tasksRecyclerView.setLayoutManager(mLayoutManager);
+
+    // specify an adapter
+     mAdapter = new TaskRecyclerViewAdapter(getInitialTasks(), this);
+     tasksRecyclerView.setAdapter(mAdapter);
+
+The `getInitialTasks()` is just a method to populate the UI with some sample tasks.
+
+    private List<TaskModel> getInitialTasks(){
+       List<TaskModel> sampleTasks = categoriesModel.sampleTasks();
+       tasksList.addAll(sampleTasks);
+       return tasksList;
+    }
+
+Now we can change what happens when we click the button on our menu.
+Update the method `public boolean onNavigationItemSelected(MenuItem item)`.
 
 
-
-create a list with [recyclerview](https://developer.android.com/guide/topics/ui/layout/recyclerview.html)
-
+    if (id == R.id.nav_personal) {
+            // Handle the personal category
+            tasksList.clear();
+            List<TaskModel> filteredTasks = categoriesModel.getTasksForCategory(CategoriesModel.CATEGORY_PERSONAL);
+            tasksList.addAll(filteredTasks);
+            mAdapter.notifyDataSetChanged();
 
 
 ------------------------
