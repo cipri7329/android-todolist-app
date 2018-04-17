@@ -408,7 +408,15 @@ Therefore we have to update the method ` public void onBindViewHolder(ViewHolder
     }
 
 
+--------------------------------------------------
+### Popup Window - add new tasks
 
+to be added ...
+
+--------------------------------------------------
+### Delete Option - delete tasks
+
+to be added ...
 
 ------------------------
 ## Evaluation
