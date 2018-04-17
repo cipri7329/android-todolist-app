@@ -50,6 +50,7 @@ Design and usability suggestions:
 - u10) (optional) provide the option to add description to a task
 - u11) (optional) provide option to change the category of a task
 - u12) (optional) deploy app and run it on your personal phone
+- u13) (optional) add your profile icon to the application
 
 U1, U2 to U* are user stories.
 
@@ -349,6 +350,64 @@ Update the method `public boolean onNavigationItemSelected(MenuItem item)`.
             List<TaskModel> filteredTasks = categoriesModel.getTasksForCategory(CategoriesModel.CATEGORY_PERSONAL);
             tasksList.addAll(filteredTasks);
             mAdapter.notifyDataSetChanged();
+
+
+#### Add CheckBox behavior
+
+We now want to add some behavior when we click the checkbox on a task.
+
+Navigate to the class `TaskRecyclerViewAdapter` (code available [here](https://github.com/ciprian12/android-todolist-app/blob/master/app/src/main/java/com/ueo/study/ueotodolist/TaskRecyclerViewAdapter.java)).
+
+Let's add a field `private List<TaskModel> tasksList;` which is initialized in the constructor.
+
+There we see the inner-class `ViewHolder`. This class gets a reference to all the graphical elements of a task.
+
+      public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
+
+The recycler view will create a view for each task when we scroll through the list.
+Once a task is out of the screen, the graphical elements will be destroyed.
+That is why we have to initialize every time the graphical elements with actual values.
+
+The classes `TaskModel`, `ViewHolder` and `TaskRecyclerViewAdapter` for a design pattern called **Model-View-Controller**.
+
+The **Model** holds the data, i.e. our task details.
+The **View** defines how we display the data, i.e. textbox, checkbox, date, calendar and so on.
+The **Controller** the updates the view when the model has changed (e.g. a task is done) or updates the model when the user has invoked an action on the display (e.g. click the checkbox).
+
+Another example for model-view-controller can be found [here](https://realpython.com/the-model-view-controller-mvc-paradigm-summarized-with-legos/).
+
+Therefore we have to update the method ` public void onBindViewHolder(ViewHolder holder, int position)` in `TaskRecyclerViewAdapter`. We want to save the state when the checkbox has been clicked.
+
+    @Override
+    public void onBindViewHolder(ViewHolder holder, int position) {
+    final TaskModel selectedTask = tasksList.get(position);
+
+    // update the data from the model (task) to the view (ui elements)
+    holder.taskName.setText(selectedTask.getName());
+    holder.taskDescription.setText("" + selectedTask.getDescription());
+    holder.taskCategory.setText("" + selectedTask.getCategory());
+
+    //when item from the display has been touched, we update the information of the model.
+    holder.taskState.setOnCheckedChangeListener(null); //reset the listener when the item is recreated when scrolling
+    holder.taskState.setChecked(selectedTask.isDone()); //update the display with the status of the task
+    holder.taskState.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+       @Override
+       public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+           if (isChecked) {
+               //display a short message when we click the checkbox
+               Toast.makeText(TaskRecyclerViewAdapter.this.context,
+                       "task done:" + selectedTask.getName(),
+                       Toast.LENGTH_LONG).show();
+               //save the status of the task
+               selectedTask.setDone(true);
+           } else {
+               selectedTask.setDone(false);
+           }
+       }
+    });
+    }
+
+
 
 
 ------------------------
