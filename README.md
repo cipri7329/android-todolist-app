@@ -8,6 +8,19 @@ This is a step by step tutorial guiding you to build a simple Android app.
 - follow the steps provided [here](https://developer.android.com/studio/install.html)
 
 ------------------------
+## Teams formation
+
+You are encouraged to form teams and work together.
+
+Each team can have **up to 3 members**.
+
+While writing code remember that *"Google is your friend"* in this case.
+You are encouraged to look up for solutions and how to do specific tasks.
+
+Searching on Google or fixing issues by asking or using an answer from [stackoverflow](https://stackoverflow.com/) is a common activity in the life of a software developer.
+
+
+------------------------
 ## Requirements Understanding
 The following points act as a description of the app and as a requirements guide.
 
@@ -42,7 +55,7 @@ Design and usability suggestions:
 - u2) each category menu item leads to a view with items only from that category
 - u3) each category view contains a list with todo-tasks
 - u4) each todo-task has a check-box (done)
-- u5) when a todo-task is clicked the user is asked to mark it as done
+- u5) when a todo-task is clicked the task is marked as done
 - u6) provide a button to "add task"
 - u7) (optional) done tasks are moved to the bottom of the list
 - u8) (optional) sort the tasks by earliest-deadline first
@@ -51,6 +64,7 @@ Design and usability suggestions:
 - u11) (optional) provide option to change the category of a task
 - u12) (optional) deploy app and run it on your personal phone
 - u13) (optional) add your profile icon to the application
+- u14) (optional) add custom icons to the menus
 
 U1, U2 to U* are user stories.
 
@@ -90,9 +104,11 @@ For an in-depth understanding navigate to this [link](https://developer.android.
 ---------------------------------------------------
 ### TodoTask Definition
 
-[slides](http://bit.ly/android-todoapp-phase2)
-
 The entire code can be seen on github at this [link](https://github.com/ciprian12/android-todolist-app/blob/master/app/src/main/java/com/ueo/study/ueotodolist)
+
+
+Presentation [slides](http://bit.ly/android-todoapp-phase2) are not designed to provide a complete step-by-step tutorial. They are intended to only provide visual hints and
+tips how and where to do some of the required coding tasks.
 
 
 Let's define a class that stores the information for a task.
@@ -411,12 +427,49 @@ Therefore we have to update the method ` public void onBindViewHolder(ViewHolder
 --------------------------------------------------
 ### Popup Window - add new tasks
 
-to be added ...
+Next feature is to add a mechanism to add a task to our list.
+
+In `res/layout` let's create a new resource layout for a popup window which will use
+to fill in the details for a new task.
+A window popup tutorial can be seen [here](http://tekeye.uk/android/examples/ui/android-popup-window).
+
+Add the necessary fields that define a task:
+- Title (plain text)
+- Description (plain text)
+- Category (spinner) [how to use](http://www.ahotbrew.com/android-dropdown-spinner-example/)
+- Date (date)
+- Time (time)
+- Add Task Button (button)
+
+Create a method in `HomeActivity` where will initiate the popup-window.
+
+      private void showTaskPopup() {
+          // ...
+      }
+
+Add the following code to initialize the popup-window.
+
+       //We need to get the instance of the LayoutInflater, use the context of this activity
+       LayoutInflater inflater = (LayoutInflater) HomeActivity.this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+       //Inflate the view from a predefined XML layout (no need for root id, using entire layout)
+       View layout = inflater.inflate(R.layout.task_popup,null);
+
+       //Get the devices screen density to calculate correct pixel sizes
+       float density=HomeActivity.this.getResources().getDisplayMetrics().density;
+       // create a focusable PopupWindow with the given layout and correct size
+       final PopupWindow pw = new PopupWindow(layout, ViewPager.LayoutParams.MATCH_PARENT, ViewPager.LayoutParams.MATCH_PARENT, true);
+
+
+We won't go into all the details of how the previous code works.
+Sometimes it's sufficient just to have a basic understanding of how to use some code samples to achieve your goals.
+
 
 --------------------------------------------------
 ### Delete Option - delete tasks
 
 to be added ...
+
+add option to delete a task
 
 ------------------------
 ## Evaluation
