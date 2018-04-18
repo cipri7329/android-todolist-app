@@ -68,4 +68,12 @@ public class TaskModel {
         this.category = category;
     }
 
+    @Override
+    public String toString() {
+        String information = "";
+        information += ">title: " + name;
+        information += " >description: " + description;
+        information += " >category: " + category;
+        return information;
+    }
 }

@@ -16,11 +16,23 @@ public class CategoriesModel {
     private List<TaskModel> tasks ;
 
     public CategoriesModel() {
-        this.tasks = new ArrayList<TaskModel>();
+        this.tasks = new ArrayList<>();
+        this.tasks.addAll(sampleTasks());
     }
 
     public void addTask(TaskModel task) {
         tasks.add(task);
+    }
+
+    public String[] getCategories() {
+        String[] categories = new String[]{
+                CATEGORY_WORK,
+                CATEGORY_FAMILY,
+                CATEGORY_SCHOOL,
+                CATEGORY_SPIRITUAL,
+                CATEGORY_PERSONAL
+        };
+        return categories;
     }
 
     public List<TaskModel> getTasksForCategory(String category) {
@@ -45,7 +57,7 @@ public class CategoriesModel {
      * returns a list with some sample tasks
      * @return
      */
-    public List<TaskModel> sampleTasks(){
+    private List<TaskModel> sampleTasks(){
         List<TaskModel> modelList = new ArrayList<TaskModel>();
         modelList.add(new TaskModel("family 1", "clean the dishes", Calendar.getInstance().getTime(), CATEGORY_FAMILY));
         modelList.add(new TaskModel("family 2", "clean the car", Calendar.getInstance().getTime(), CATEGORY_FAMILY));
